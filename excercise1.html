@@ -1,44 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promise</title>
+    <title>Ansyn & Await Assignment</title>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        video {
+            width: 300px;
+            height: 300px;
+        }
+    </style>
 </head>
+
 <body>
-<script>
+    <script>
+        createVideo('https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4')
 
-createvideo("https://www.youtube.com/watch?v=sEIg140mUqI.mp4").then(playvideo()).catch(function(error){
-    alert(error);
-})
+        async function createVideo(videoSource) {
 
-function createvideo(videoSource) {
-    return new Promise(function(resolve, reject){
-    let video = document.createElement('video');
-    let source = document.createElement('source');
-    video.setAttribute('controls', 'controls')
-    video.setAttribute('id', 'video')
-    video.setAttribute('type', 'video/mp4')
-    video.setAttribute('autoplay', 'true')
-    source.src = videoSource;
-    video.appendChild(source)
-    video.onload = function(){
-        resolve(video)
-    }
-    video.onerror = function(){
-        reject(new Error("Video source not valid"))
-    }
-    document.body.appendChild(video);
-  })
-
-}
-
-function playvideo(){
-    document.getElementById('video').play();
-}
+            let video = document.createElement('video')
+            let source = document.createElement('source')
+            video.setAttribute('controls', 'controls')
+            video.setAttribute('id', 'video')
+            video.setAttribute('autoplay', 'true')
+            source.src = videoSource
+            source.type = "video/mp4"
+            video.appendChild(source)
 
 
-
-</script>
+            video.onload = await video
+            document.body.append(video)
+            var videos = document.getElementById('video')
+            const play = await videos.play()
+        }
+    </script>
 </body>
-</html>
+
+</html> 
