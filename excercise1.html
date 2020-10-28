@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise</title>
+</head>
+<body>
+<script>
+
+createvideo("https://www.youtube.com/watch?v=sEIg140mUqI.mp4").then(playvideo()).catch(function(error){
+    alert(error);
+})
+
+function createvideo(videoSource) {
+    return new Promise(function(resolve, reject){
+    let video = document.createElement('video');
+    let source = document.createElement('source');
+    video.setAttribute('controls', 'controls')
+    video.setAttribute('id', 'video')
+    video.setAttribute('type', 'video/mp4')
+    video.setAttribute('autoplay', 'true')
+    source.src = videoSource;
+    video.appendChild(source)
+    video.onload = function(){
+        resolve(video)
+    }
+    video.onerror = function(){
+        reject(new Error("Video source not valid"))
+    }
+    document.body.appendChild(video);
+  })
+
+}
+
+function playvideo(){
+    document.getElementById('video').play();
+}
+
+
+
+</script>
+</body>
+</html>
